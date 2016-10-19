@@ -7,7 +7,7 @@ let
                 res = Optim.optimize(f_prob, prob.initial_x, Optim.Newton(linesearch! = ls),
                                      Optim.OptimizationOptions(autodiff = true))
                 println("$(name):\tf_calls = $(Optim.f_calls(res))\tg_calls = $(Optim.g_calls(res))")
-                @assert norm(res.minimum - prob.solutions) < 1e-2
+                @assert norm(minimizer(res) - prob.solutions) < 1e-2
             end
         end
     end

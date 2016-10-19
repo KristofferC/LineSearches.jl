@@ -9,7 +9,7 @@ lsfunctions = (hagerzhang!, strongwolfe!,
 println("Running tests:")
 my_tests = [
     "alphacalc.jl",
-#    "optim.jl"
+    "optim.jl"
 ]
 
 for my_test in my_tests
