@@ -9,6 +9,38 @@ there exists a factor ρ = ρ(c₁) such that α' ≦ ρ α.
 This is a modification of the algorithm described in Nocedal Wright (2nd ed), Sec. 3.5.
 """
 
+bt3!{T}(df,
+        x::Vector{T},
+        s::Vector,
+        x_scratch::Vector,
+        gr_scratch::Vector,
+        lsr::LineSearchResults,
+        alpha::Real = 1.0,
+        mayterminate::Bool = false,
+        c1::Real = 1e-4,
+        rhohi::Real = 0.5,
+        rholo::Real = 0.1,
+        iterations::Integer = 1_000) =
+            backtracking!(df,x,s,x_scratch,gr_scratch,
+                          lsr,alpha,mayterminate,c1,
+                          rhohi,rholo,iterations,3)
+bt2!{T}(df,
+        x::Vector{T},
+        s::Vector,
+        x_scratch::Vector,
+        gr_scratch::Vector,
+        lsr::LineSearchResults,
+        alpha::Real = 1.0,
+        mayterminate::Bool = false,
+        c1::Real = 1e-4,
+        rhohi::Real = 0.5,
+        rholo::Real = 0.1,
+        iterations::Integer = 1_000) =
+            backtracking!(df,x,s,x_scratch,gr_scratch,
+                          lsr,alpha,mayterminate,c1,
+                          rhohi,rholo,iterations,2)
+
+
 function backtracking!{T}(df,
                           x::Vector{T},
                           s::Vector,
@@ -28,7 +60,7 @@ function backtracking!{T}(df,
     #if c1 >= backtrack_condition
     #    warn("""The Armijo constant c1 is too large; replacing it with
     #                   $(backtrack_condition)""")
-     #   c1 = backtrack_condition
+    #   c1 = backtrack_condition
     #end
 
     # Count the total number of iterations
